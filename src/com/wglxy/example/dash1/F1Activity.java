@@ -2,7 +2,6 @@ package com.wglxy.example.dash1;
 
 
 import java.util.concurrent.ExecutionException;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -74,13 +73,18 @@ public void onClick(View v) {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    		// TODO Auto-generated method stub
 	    		super.onActivityResult(requestCode, resultCode, data);
-	    		if (resultCode == RESULT_OK){
-	    				
-	    		        	Bundle extras = data.getExtras();
-	    					Bitmap bmp = (Bitmap) extras.get("data");
-	    					iv.setImageBitmap(bmp);       
-	    		        }
-	    		}
+	    		if (requestCode == 1) {
+			        // currImageURI is the global variable I’m using to hold the content:
+			            Uri currImageURI = data.getData();
+			            System.out.println("Current image Path is ----->" +  getRealPathFromURI(currImageURI));
+			          //  TextView tv_path = (TextView) findViewById(R.id.path);
+			           // tv_path.setText(getRealPathFromURI(currImageURI));
+			        } else{
+			        	Bundle extras = data.getExtras();
+						Bitmap bmp = (Bitmap) extras.get("data");
+						iv.setImageBitmap(bmp);       
+			        }
+			        }
 	
 
 	//Convert the image URI to the direct file system path of the image file
@@ -109,24 +113,7 @@ public void onClick(View v) {
 		}
 
 
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+	}}
 	    		
 	
 	    		
