@@ -1,6 +1,8 @@
 package com.wglxy.example.dash1;
 
 
+import java.util.concurrent.ExecutionException;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,22 +19,13 @@ import android.view.View;
 
 public class F1Activity extends DashboardActivity implements View.OnClickListener
 {
+	static Uri currImageURI;
 	ImageButton ib;
 	ImageButton b;
 	ImageView iv;
 	Intent i;
 	final static int cameraData = 0;
-/**
- * onCreate
- *
- * Called when the activity is first created. 
- * This is where you should do all of your normal static set up: create views, bind data to lists, etc. 
- * This method also provides you with a Bundle containing the activity's previously frozen state, if there was one.
- * 
- * Always followed by onStart().
- *
- * @param savedInstanceState Bundle
- */
+
 
 protected void onCreate(Bundle savedInstanceState) 
 {
@@ -87,7 +80,53 @@ public void onClick(View v) {
 	    					Bitmap bmp = (Bitmap) extras.get("data");
 	    					iv.setImageBitmap(bmp);       
 	    		        }
-	    		}}
+	    		}
+	
+
+	//Convert the image URI to the direct file system path of the image file
+	public String getRealPathFromURI(Uri contentUri) {
+		String res = null;
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+		if(cursor.moveToFirst()){;
+		int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		res = cursor.getString(column_index);
+		}
+		cursor.close();
+		return res;
+		}
+	
+	public static void main(String[] args) {
+		HttpUploader uploader = new HttpUploader();
+		F1Activity C= new F1Activity();
+		try {
+		  @SuppressWarnings("unused")
+		Object image_name = uploader.execute(C.getRealPathFromURI(currImageURI)).get();       
+		} catch (InterruptedException e) {
+		  e.printStackTrace();
+		} catch (ExecutionException e) {
+		  e.printStackTrace();
+		}
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 	    		
 	
 	    		
