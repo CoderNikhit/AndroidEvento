@@ -19,7 +19,7 @@ public class HomeActivity extends DashboardActivity
  * Always followed by onStart().
  *
  */
-
+// this is called by android system as any activity is created.
 protected void onCreate(Bundle savedInstanceState) 
 {
     super.onCreate(savedInstanceState);

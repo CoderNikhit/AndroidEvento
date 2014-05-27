@@ -21,15 +21,20 @@ import android.util.Log;
 //Uploader class
 @SuppressWarnings("unused")
 public class HttpUploader extends AsyncTask<String, Void, String> {
+	
+	String imagePath;
 
+	public HttpUploader(String path){
+		imagePath = path;
+	}
 	
      protected String doInBackground(String... path) {
-          
+    	 
+    	 System.out.println("something "+imagePath);// ye print hona chahiye.. jo nahi ho rahai... mtlb ye method hi call nahi ho rahi.
          String outPut = null;
           
-         for (String sdPath : path) {
-          
-             Bitmap bitmapOrg = BitmapFactory.decodeFile(sdPath);
+          	 System.out.println("entering for loop");
+             Bitmap bitmapOrg = BitmapFactory.decodeFile(imagePath);
              ByteArrayOutputStream bao = new ByteArrayOutputStream();
               
              //Resize the image
@@ -51,14 +56,15 @@ public class HttpUploader extends AsyncTask<String, Void, String> {
              System.out.println("uploading image now ——" + ba1);
               
              ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-             nameValuePairs.add(new BasicNameValuePair("image", ba1));
+             nameValuePairs.add(new BasicNameValuePair("images", ba1));
               
              try {
                  HttpClient httpclient = new DefaultHttpClient();
                  HttpPost httppost = new HttpPost("http://10.0.3.2/images/api.upload.php");
                  httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                  
+                  System.out.println("-------1---------");
                  HttpResponse response = httpclient.execute(httppost);
+                 System.out.println("-------2---------");
                  HttpEntity entity = response.getEntity();               
 
                  // print responce
@@ -73,14 +79,11 @@ public class HttpUploader extends AsyncTask<String, Void, String> {
              } catch (Exception e) {
                  Log.e("log_tag ******", "Error in http connection " + e.toString());
              }
-         }
+     //    }
          return outPut;
      }}   
  
 
-	
 
-/*	
-	*/
 	
 	
