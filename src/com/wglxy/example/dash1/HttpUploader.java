@@ -30,7 +30,7 @@ public class HttpUploader extends AsyncTask<String, Void, String> {
 	
      protected String doInBackground(String... path) {
     	 
-    	 System.out.println("something "+imagePath);// ye print hona chahiye.. jo nahi ho rahai... mtlb ye method hi call nahi ho rahi.
+    	 System.out.println("something "+imagePath);
          String outPut = null;
           
           	 System.out.println("entering for loop");

@@ -19,18 +19,7 @@
             android:theme="@style/Theme.D1"
             android:label="@string/title_feature1"
             />
-      <activity android:name=".F2Activity"
-            android:theme="@style/Theme.D1"
-            android:label="@string/title_feature2"
-            />
-      <activity android:name=".F3Activity"
-            android:theme="@style/Theme.D1"
-            android:label="@string/title_feature3"
-            />
-      <activity android:name=".F4Activity"
-            android:theme="@style/Theme.D1"
-            android:label="@string/title_feature4"
-            />
+      
       <activity android:name=".AboutActivity"
             android:theme="@style/Theme.D1"
             android:label="@string/title_about"
@@ -39,7 +28,12 @@
             android:theme="@style/Theme.D1"
             android:label="@string/title_search"
             />
+      
+      <activity android:name=".SearchAtHome"
+            android:theme="@style/Theme.D1"
+            android:label="@string/title_search1"
+            />
       </application>
-    <uses-sdk android:minSdkVersion="8" />
+  
 
 </manifest> 

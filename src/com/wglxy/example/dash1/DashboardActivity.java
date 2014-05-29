@@ -150,6 +150,7 @@ public void onClickSearch (View v)
     startActivity (new Intent(getApplicationContext(), SearchActivity.class));
 }
 
+
 /**
  * Handle the click on the About button.
  * 
@@ -176,16 +177,6 @@ public void onClickFeature (View v)
       case R.id.home_btn_feature1 :
            startActivity (new Intent(getApplicationContext(), F1Activity.class));
            break;
-      case R.id.home_btn_feature2 :
-           startActivity (new Intent(getApplicationContext(), F2Activity.class));
-           break;
-      case R.id.home_btn_feature3 :
-           startActivity (new Intent(getApplicationContext(), F3Activity.class));
-           break;
-      case R.id.home_btn_feature4 :
-           startActivity (new Intent(getApplicationContext(), F4Activity.class));
-           break;
-      
       default: 
     	   break;
     }

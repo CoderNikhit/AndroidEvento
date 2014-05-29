@@ -1,6 +1,10 @@
 package com.wglxy.example.dash1;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * This is a simple activity that demonstrates the dashboard user interface pattern.
@@ -10,22 +14,34 @@ import android.os.Bundle;
 public class HomeActivity extends DashboardActivity 
 {
 
-/**
- * onCreate - called when the activity is first created.
- * Called when the activity is first created. 
- * This is where you should do all of your normal static set up: create views, bind data to lists, etc. 
- * This method also provides you with a Bundle containing the activity's previously frozen state, if there was one.
- * 
- * Always followed by onStart().
- *
- */
+	private EditText homeEditText;
+	
 // this is called by android system as any activity is created.
 protected void onCreate(Bundle savedInstanceState) 
 {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
+    // isse me edittext box ka yahan pe ek instance bana leta hun
+    homeEditText = (EditText) findViewById(R.id.search_box);
+    
 }
     
+public void onHomeClickSearch (View v)
+{
+	String textBoxContent = homeEditText.getText().toString();
+	if(textBoxContent!=null && textBoxContent.length() > 0){
+		Intent intent = new Intent(this,SearchAtHome.class);
+		intent.putExtra("keyword", textBoxContent);
+	    startActivity (intent);
+	}
+	else{
+		Toast.makeText(this, "No input found.", Toast.LENGTH_LONG).show();
+	}
+
+}
+
+
+
 /**
  * onDestroy
  * The final call you receive before your activity is destroyed. 
@@ -112,6 +128,8 @@ protected void onStop ()
 
 /**
  */
+
+
 // Click Methods
 
 
