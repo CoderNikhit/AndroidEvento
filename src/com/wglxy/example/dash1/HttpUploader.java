@@ -13,12 +13,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import android.util.Base64;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 //Uploader class
+@SuppressLint("NewApi")
 @SuppressWarnings("unused")
 public class HttpUploader extends AsyncTask<String, Void, String> {
 	
