@@ -18,7 +18,7 @@ import android.widget.Toast;
  *
  */
 
-public abstract class DashboardActivity extends Activity 
+public abstract class DashboardActivity extends Activity
 {
 
 /**

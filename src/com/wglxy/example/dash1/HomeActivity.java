@@ -21,7 +21,6 @@ protected void onCreate(Bundle savedInstanceState)
 {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
-    // isse me edittext box ka yahan pe ek instance bana leta hun
     homeEditText = (EditText) findViewById(R.id.search_box);
     
 }

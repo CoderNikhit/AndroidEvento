@@ -63,6 +63,7 @@ public void onClick(View v) {
 		builder.setItems(colors, new DialogInterface.OnClickListener() {
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
+		    	
 		    	switch (which) {
 		        case 0:
 		        	Intent intent = new Intent();
@@ -94,7 +95,8 @@ public void onClick(View v) {
 		    	switch (which) {
 		        case 0:
 		        	i= new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-		        	startActivityForResult(i, cameraData);	
+		        	startActivityForResult(i, cameraData);
+		        	
 		          break;
 		        case 1:
 		        	i= new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
@@ -119,8 +121,11 @@ public void onClick(View v) {
 			            System.out.println("Current graphic Path is ----->" +  getRealPathFromURI(currImageURI));
 			            main1(getRealPathFromURI(currImageURI)); 
 	    			    Toast.makeText(this, "image upload successful to:\n" + data.getData(), Toast.LENGTH_LONG).show();
-	    			  } else if (resultCode == RESULT_CANCELED) {
-	    			    	Toast.makeText(this, "image upload cancelled.", Toast.LENGTH_LONG).show();
+	    			    Intent myIntent = new Intent(F1Activity.this, F2Activity.class);
+	    		    	F1Activity.this.startActivity(myIntent);
+	    			    
+	    			} else if (resultCode == RESULT_CANCELED) {
+	    			    	Toast.makeText(this, "upload cancelled.", Toast.LENGTH_LONG).show();
 	    			  } else {
 	    			     Toast.makeText(this, "Failed to upload image", Toast.LENGTH_LONG).show();
 	    		      }		
@@ -137,9 +142,11 @@ public void onClick(View v) {
 			            System.out.println(currVideoURI);
 			    		int response= uploader.upLoad2Server(""+ getRealPathFromURI1(currVideoURI));
 			    		Toast.makeText(this, "video upload successful to:\n" + data.getData(), Toast.LENGTH_LONG).show();
-	    				}
+			    		Intent myIntent = new Intent(F1Activity.this, F2Activity.class);
+				    	F1Activity.this.startActivity(myIntent);
+	    			}
 	    			else if (resultCode == RESULT_CANCELED) {
-	    			    	Toast.makeText(this, "video upload cancelled.", Toast.LENGTH_LONG).show();
+	    			    	Toast.makeText(this, "upload cancelled.", Toast.LENGTH_LONG).show();
 	    			    } 
 	    			else {
 	    			     Toast.makeText(this, "Failed to upload video", Toast.LENGTH_LONG).show();

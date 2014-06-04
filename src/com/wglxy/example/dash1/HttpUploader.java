@@ -3,6 +3,7 @@ package com.wglxy.example.dash1;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList; 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -12,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
 import android.util.Base64;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -62,7 +64,13 @@ public class HttpUploader extends AsyncTask<String, Void, String> {
               
              try {
                  HttpClient httpclient = new DefaultHttpClient();
-                 HttpPost httppost = new HttpPost("http://10.0.3.2/images/api.upload.php");
+                 HttpPost httppost = new HttpPost(Constants.SERVER_ADDRESS+"images/api.upload.php");
+                 // fine now. fine na ? hmm chal gn :) bhai error :-o dekh le.. ab to smart ho hi gaya hai tu :P
+                 // arre wo to pehle m change karke use kar raha tha kamine
+                 // abhi bhula hu
+                 // usske karan kuch nai tha
+                 // ruk
+                 // chalake dekh ek baar.. tu chala haan wohi bhai wohi.
                  httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                   System.out.println("-------1---------");
                  HttpResponse response = httpclient.execute(httppost);

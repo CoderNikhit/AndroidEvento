@@ -1,106 +1,128 @@
 package com.wglxy.example.dash1;
 
-import java.io.File;
-import android.view.View;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.EditText;
+ 
 
-
-public class F3Activity extends DashboardActivity implements View.OnClickListener
+@SuppressLint("NewApi")
+public class F3Activity extends DashboardActivity 
 {
-	ImageButton ib;
-	ImageButton b;
-	Intent i;
-	private static final int VIDEO_CAPTURE = 101;
-	static Uri currVideoURI;
-
-	private boolean hasCamera() {
-	    if (getPackageManager().hasSystemFeature(
-                       PackageManager.FEATURE_CAMERA_ANY)){
-	        return true;
-	    } else {
-	        return false;
-	    }
-	}
-
-
-protected void onCreate(Bundle savedInstanceState) 
+	 private ProgressDialog pDialog;
+	 
+	    JSONParser jsonParser = new JSONParser();
+	    EditText inputName;
+	    EditText inputPrice;
+	    EditText inputDesc;
+	    
+	    private static String url_create_product = "http://10.0.3.2/android_connect/create_product.php";
+	    private static final String TAG_SUCCESS = "success";
+	    
+	    protected void onCreate(Bundle savedInstanceState) 
 {
     super.onCreate(savedInstanceState);
-    setContentView (R.layout.activity_f3);
+    setContentView (R.layout.activity_f2);
     setTitleFromActivityLabel (R.id.title_text);
-    if (!hasCamera())
-		ib.setEnabled(false);
-		initialize();
+    inputName = (EditText) findViewById(R.id.inputName);
+    inputPrice = (EditText) findViewById(R.id.inputPrice);
+    inputDesc = (EditText) findViewById(R.id.inputDesc);
+    
+ // Create button
+    Button btnCreateProduct = (Button) findViewById(R.id.btnCreateProduct);
+
+    // button click event
+    btnCreateProduct.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            // creating new product in background thread
+            new CreateNewProduct().execute();
+        }
+    });
 }
+	  
+	    @SuppressLint("NewApi")
+		class CreateNewProduct extends AsyncTask<String, String, String> {
+	    	 
+	        /**
+	         * Before starting background thread Show Progress Dialog
+	         * */
+	        @SuppressLint("NewApi")
+			@Override
+	        protected void onPreExecute() {
+	            super.onPreExecute();
+	            pDialog = new ProgressDialog(F3Activity.this);
+	            pDialog.setMessage("Updating..");
+	            pDialog.setIndeterminate(false);
+	            pDialog.setCancelable(true);
+	            pDialog.show();
+	        }
+	 
+	        /**
+	         * Creating product
+	         * */
+	        protected String doInBackground(String... args) {
+	            String name = inputName.getText().toString();
+	            String price = inputPrice.getText().toString();
+	            String description = inputDesc.getText().toString();
+	 
+	            // Building Parameters
+	            List<NameValuePair> params = new ArrayList<NameValuePair>();
+	            params.add(new BasicNameValuePair("name", name));
+	            params.add(new BasicNameValuePair("price", price));
+	            params.add(new BasicNameValuePair("description", description));
+	 
+	            // getting JSON Object
+	            // Note that create product url accepts POST method
+	            JSONObject json = jsonParser.makeHttpRequest(url_create_product,
+	                    "POST", params);
+	 
+	            // check log cat fro response
+	            Log.d("Create Response", json.toString());
+	 
+	            // check for success tag
+	            try {
+	                int success = json.getInt(TAG_SUCCESS);
+	 
+	                if (success == 1) {
+	                    // successfully created product
+	                    Intent i = new Intent(getApplicationContext(), F2Activity.class);
+	                    startActivity(i);
+	 
+	                    // closing this screen
+	                    finish();
+	                } else {
+	                    // failed to create product
+	                }
+	            } catch (JSONException e) {
+	                e.printStackTrace();
+	            }
+	 
+	            return null;
+	        }
+	 
+	        /**
+	         * After completing background task Dismiss the progress dialog
+	         * **/
+	        protected void onPostExecute(String file_url) {
+	            // dismiss the dialog once done
+	            pDialog.dismiss();
+	        }
+	 
+	    }}
+    
 
-private void initialize() {
-	// TODO Auto-generated method stub
-	ib = (ImageButton)  findViewById(R.id.ibTakePic);
-	b = (ImageButton)  findViewById(R.id.upload);
-	b.setOnClickListener(this);
-    ib.setOnClickListener(this);
-}
-
-
-@Override
-public void onClick(View v) {
-	// TODO Auto-generated method stub
-	switch (v.getId()){	
-	case R.id.upload:
-		ImageButton upload_btn = (ImageButton) this.findViewById(R.id.upload);
-		upload_btn.setOnClickListener( new View.OnClickListener(){
-		@Override
-		public void onClick(View view) {
-		// To open up a gallery browser
-		  Intent intent = new Intent();
-		  intent.setType("video/*");
-		  intent.setAction(Intent.ACTION_GET_CONTENT);
-		  startActivityForResult(Intent.createChooser(intent, "Select Video"),1);
-		}});
-		
-		
-	break;
-	
-	case R.id.ibTakePic:
-	File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() 
-			       + "/myvideo.mp4");
-	i= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-	Uri videoUri = Uri.fromFile(mediaFile);
-	i.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
-	i.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 500000);
-	startActivityForResult(i, VIDEO_CAPTURE);
-	break;
-}}
-
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == 1 && resultCode == RESULT_OK) {
-    	
-    	currVideoURI = data.getData();
-        System.out.println("Current video Path is ----->" +  getRealPathFromURI(currVideoURI));
-       // TextView tv_path = (TextView) findViewById(R.id.path);
-        //tv_path.setText(getRealPathFromURI(currVideoURI));
-       
-    }}
-public String getRealPathFromURI(Uri contentUri) {
-	String res = null;
-	String[] proj = { MediaStore.Video.Media.DATA };
-	Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-	if(cursor.moveToFirst()){;
-	int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-	res = cursor.getString(column_index);
-	}
-	cursor.close();
-	return res;
-	}
-	} // end class

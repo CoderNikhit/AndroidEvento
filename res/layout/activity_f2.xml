@@ -12,7 +12,8 @@
             android:onClick="onClickHome" />
 
         <ImageView style="@style/TitleBarSeparator" />
-        <TextView style="@style/TitleBarText" />
+        <TextView style="@style/TitleBarText"
+            		android:text="Update Details" />
         <ImageButton style="@style/TitleBarAction"
             android:contentDescription="@string/description_about"
             android:src="@drawable/title_about"
@@ -33,7 +34,7 @@
         android:textSize="17dip"/>
  
     <!-- Input Name -->
-    <EditText android:id="@+id/inputName"
+    <EditText android:id="@+id/inputEvent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
@@ -50,7 +51,7 @@
         android:textSize="17dip"/>
  
     <!-- Input Price -->
-    <EditText android:id="@+id/inputPrice"
+    <EditText android:id="@+id/inputLocation"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
@@ -67,7 +68,7 @@
         android:textSize="17dip"/>
  
     <!-- Input description -->
-    <EditText android:id="@+id/inputDesc"
+    <EditText android:id="@+id/inputDescription"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
@@ -76,9 +77,9 @@
         android:gravity="top"/>
  
     <!-- Button Create Product -->
-    <Button android:id="@+id/btnCreateProduct"
+    <Button android:id="@+id/btnUpdate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="List Images"/>
+        android:text="Update"/>
  
 </LinearLayout>

@@ -3,6 +3,13 @@
       package="com.wglxy.example.dash1"
       android:versionCode="1"
       android:versionName="1.0">
+      
+        <uses-sdk
+	        android:minSdkVersion="8"
+    	    android:targetSdkVersion="19" />
+    
+<uses-permission android:name="android.permission.INTERNET"/>
+
     <application 
       android:theme="@style/Theme.D1"
       android:icon="@drawable/icon" 
@@ -20,6 +27,11 @@
             android:label="@string/title_feature1"
             />
       
+      <activity android:name=".F2Activity"
+            android:theme="@style/Theme.D1"
+            android:label="@string/title_feature1"
+            />
+      
       <activity android:name=".AboutActivity"
             android:theme="@style/Theme.D1"
             android:label="@string/title_about"
@@ -33,6 +45,8 @@
             android:theme="@style/Theme.D1"
             android:label="@string/title_search1"
             />
+      
+        
       </application>
   
 
