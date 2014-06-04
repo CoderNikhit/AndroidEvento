@@ -5,16 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-//import android.View.OnClickListener;
-//import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-//import android.widget.TextView;
 import android.view.View;
 
 
@@ -136,11 +132,11 @@ public void onClick(View v) {
 	    			if (resultCode == RESULT_OK) {
 	    			    Uri currVideoURI = data.getData();
 			            System.out.println("Current graphic Path is ----->" +  getRealPathFromURI1(currVideoURI));
-			            //main2(getRealPathFromURI1(currVideoURI));
 			            System.out.println(getRealPathFromURI1(currVideoURI));
 			            HttpVideoUploader uploader = new HttpVideoUploader();
-			            System.out.println(currVideoURI);
-			    		int response= uploader.upLoad2Server(""+ getRealPathFromURI1(currVideoURI));
+			            //System.out.println("111111111111" + currVideoURI);
+			            @SuppressWarnings("unused")
+						int response= uploader.upLoad2Server(""+ getRealPathFromURI1(currVideoURI));
 			    		Toast.makeText(this, "video upload successful to:\n" + data.getData(), Toast.LENGTH_LONG).show();
 			    		Intent myIntent = new Intent(F1Activity.this, F2Activity.class);
 				    	F1Activity.this.startActivity(myIntent);

@@ -28,9 +28,8 @@ public class F2Activity extends DashboardActivity
 	    EditText inputEvent;
 	    EditText inputLocation;
 	    EditText inputDescription;
-	    // iss file ko baar baar clean karna pad raha h.
-	     //kyu/
-	    private static String url_update_row = Constants.SERVER_ADDRESS+"images/create_product.php"; //sorry :P this is bad practice. Le me tell u smarter way.
+	    
+	    private static String url_update_row = Constants.SERVER_ADDRESS+"images/create_product.php"; 
 	    private static final String TAG_SUCCESS = "success";
 	    
 	    protected void onCreate(Bundle savedInstanceState) 
@@ -41,7 +40,7 @@ public class F2Activity extends DashboardActivity
     inputLocation = (EditText) findViewById(R.id.inputLocation);
     inputDescription = (EditText) findViewById(R.id.inputDescription);
     
- // Create button
+    // Create button
     Button btnUpdate = (Button) findViewById(R.id.btnUpdate);
 
     // button click event
@@ -54,7 +53,6 @@ public class F2Activity extends DashboardActivity
         }
     });
 }
-	  // happpy ? tu jo h :D :P
 	    class CreateNewRow extends AsyncTask<String, String, String> {
 	    		           protected void onPreExecute() {
 	            super.onPreExecute();

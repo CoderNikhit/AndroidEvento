@@ -65,14 +65,8 @@ public class HttpUploader extends AsyncTask<String, Void, String> {
              try {
                  HttpClient httpclient = new DefaultHttpClient();
                  HttpPost httppost = new HttpPost(Constants.SERVER_ADDRESS+"images/api.upload.php");
-                 // fine now. fine na ? hmm chal gn :) bhai error :-o dekh le.. ab to smart ho hi gaya hai tu :P
-                 // arre wo to pehle m change karke use kar raha tha kamine
-                 // abhi bhula hu
-                 // usske karan kuch nai tha
-                 // ruk
-                 // chalake dekh ek baar.. tu chala haan wohi bhai wohi.
                  httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                  System.out.println("-------1---------");
+                 System.out.println("-------1---------");
                  HttpResponse response = httpclient.execute(httppost);
                  System.out.println("-------2---------");
                  HttpEntity entity = response.getEntity();               
