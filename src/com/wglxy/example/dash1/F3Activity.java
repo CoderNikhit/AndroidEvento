@@ -29,11 +29,13 @@ public class F3Activity extends DashboardActivity
 	    EditText inputPrice;
 	    EditText inputDesc;
 	    
-	    private static String url_create_product = "http://10.0.3.2/android_connect/create_product.php";
+	    private static String url_create_product = Constants.SERVER_ADDRESS+"images/create_product.php"; 
 	    private static final String TAG_SUCCESS = "success";
 	    
 	    protected void onCreate(Bundle savedInstanceState) 
-{
+{ // maine tujhe bheji b hogi ye file kabhi
+	    	// debug k liye
+	    	
     super.onCreate(savedInstanceState);
     setContentView (R.layout.activity_f2);
     setTitleFromActivityLabel (R.id.title_text);
@@ -71,7 +73,7 @@ public class F3Activity extends DashboardActivity
 	            pDialog.setCancelable(true);
 	            pDialog.show();
 	        }
-	 
+
 	        /**
 	         * Creating product
 	         * */
@@ -80,21 +82,23 @@ public class F3Activity extends DashboardActivity
 	            String price = inputPrice.getText().toString();
 	            String description = inputDesc.getText().toString();
 	 
-	            // Building Parameters
+	            // Building Parameters ye sala file poora chud gaya :-o
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
-	            params.add(new BasicNameValuePair("name", name));
-	            params.add(new BasicNameValuePair("price", price));
-	            params.add(new BasicNameValuePair("description", description));
+	            params.add(new BasicNameValuePair("Event", name));
+	            params.add(new BasicNameValuePair("Location", price));
+	            params.add(new BasicNameValuePair("Description", description));
+	          // yaha aisa Name k liye nai hoga?  params.add();
+	            params.add(new BasicNameValuePair("Name", F1Activity.Name));
 	 
 	            // getting JSON Object
 	            // Note that create product url accepts POST method
-	            JSONObject json = jsonParser.makeHttpRequest(url_create_product,
-	                    "POST", params);
+	            JSONObject json = jsonParser.makeHttpRequest(url_create_product, "POST", params);
 	 
 	            // check log cat fro response
 	            Log.d("Create Response", json.toString());
 	 
 	            // check for success tag
+	            // 1 sec.
 	            try {
 	                int success = json.getInt(TAG_SUCCESS);
 	 

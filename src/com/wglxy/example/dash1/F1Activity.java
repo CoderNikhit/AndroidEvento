@@ -1,5 +1,8 @@
 package com.wglxy.example.dash1;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,6 +29,7 @@ public class F1Activity extends DashboardActivity implements View.OnClickListene
 	ImageView j;
 	final static int cameraData = 102;
 	final static int videoData = 101;
+	static String Name;
 
 
 protected void onCreate(Bundle savedInstanceState) 
@@ -49,7 +53,7 @@ private void initialize() {
 public void onClick(View v) {
 	// TODO Auto-generated method stub
 	switch (v.getId()){
-	
+
 	case R.id.upload:
 		//upload button
 		CharSequence colors[] = new CharSequence[] {"Image", "Video"};
@@ -59,7 +63,7 @@ public void onClick(View v) {
 		builder.setItems(colors, new DialogInterface.OnClickListener() {
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
-		    	
+
 		    	switch (which) {
 		        case 0:
 		        	Intent intent = new Intent();
@@ -80,7 +84,7 @@ public void onClick(View v) {
 		});
 		builder.show();
 		break;
-	
+
 	case R.id.ibTakePic:
 		CharSequence colors1[] = new CharSequence[] {"Image", "Video"};
 		AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -92,7 +96,7 @@ public void onClick(View v) {
 		        case 0:
 		        	i= new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		        	startActivityForResult(i, cameraData);
-		        	
+
 		          break;
 		        case 1:
 		        	i= new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
@@ -114,19 +118,31 @@ public void onClick(View v) {
 	    		if (requestCode == 0) {
 	    			if (resultCode == RESULT_OK) {
 	    				Uri currImageURI = data.getData();
+	    				// yahan error aa rahi hai!
+	    				// wo to mujhe b pata tha
+	    				// baat ye h ki f1 maiine naya dala tha
+	    				// baaki sab wohi h.
+	    				// error php k karan b ho sakti h
+	    				// jab bada file upload kar rahe the uss din jis din ho gaya
+	    				// same error aa rahi tho
+	    		// php m maine change kiya
+	    				// but thk nai hua.
+	    				// aur yaha error nai ho sakta
+	    				// ye code sadiyo se aisa hi h
+	    				// issme hmne kabhi change nai kiya. yaha kuch khas h b nai.ok
 			            System.out.println("Current graphic Path is ----->" +  getRealPathFromURI(currImageURI));
 			            main1(getRealPathFromURI(currImageURI)); 
 	    			    Toast.makeText(this, "image upload successful to:\n" + data.getData(), Toast.LENGTH_LONG).show();
 	    			    Intent myIntent = new Intent(F1Activity.this, F2Activity.class);
 	    		    	F1Activity.this.startActivity(myIntent);
-	    			    
+
 	    			} else if (resultCode == RESULT_CANCELED) {
 	    			    	Toast.makeText(this, "upload cancelled.", Toast.LENGTH_LONG).show();
 	    			  } else {
 	    			     Toast.makeText(this, "Failed to upload image", Toast.LENGTH_LONG).show();
 	    		      }		
-	    			  
-	    			       
+
+
 			          	} 
 	    		if (requestCode == 1) {
 	    			if (resultCode == RESULT_OK) {
@@ -134,9 +150,17 @@ public void onClick(View v) {
 			            System.out.println("Current graphic Path is ----->" +  getRealPathFromURI1(currVideoURI));
 			            System.out.println(getRealPathFromURI1(currVideoURI));
 			            HttpVideoUploader uploader = new HttpVideoUploader();
-			            //System.out.println("111111111111" + currVideoURI);
-			            @SuppressWarnings("unused")
-						int response= uploader.upLoad2Server(""+ getRealPathFromURI1(currVideoURI));
+			           
+							try {
+								int response= uploader.upLoad2Server(""+ getRealPathFromURI1(currVideoURI));
+							} catch (MalformedURLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
 			    		Toast.makeText(this, "video upload successful to:\n" + data.getData(), Toast.LENGTH_LONG).show();
 			    		Intent myIntent = new Intent(F1Activity.this, F2Activity.class);
 				    	F1Activity.this.startActivity(myIntent);
@@ -164,22 +188,23 @@ public void onClick(View v) {
 	    			  } else {
 	    			     Toast.makeText(this, "Failed to save Image", Toast.LENGTH_LONG).show();
 	    		      }}}
-	
+
 
 	//Convert the image URI to the direct file system path of the image file
 	public String getRealPathFromURI(Uri contentUri) {
 		String res = null;
-			System.out.println("........................image case........................");
+			System.out.println("........................image case1........................");
 			String[] proj = { MediaStore.Images.Media.DATA } ;
 			Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
 			if(cursor.moveToFirst()){;
 			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			System.out.println("........................image case2........................");
 			res = cursor.getString(column_index);
 			}
 			cursor.close();
 			return res;
 			}
-	
+
 	public String getRealPathFromURI1(Uri contentUri) {
 		String res = null;
 			System.out.println("........................video case........................");
@@ -192,9 +217,9 @@ public void onClick(View v) {
 			cursor.close();
 			return res;
 			}
-		
-		
-	
+
+
+
 	public void main1(String s1){
 		HttpUploader uploader = new HttpUploader(s1);			
 		System.out.println("-------3---------");

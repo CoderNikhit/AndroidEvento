@@ -22,16 +22,17 @@ import android.widget.EditText;
 
 public class F2Activity extends DashboardActivity
 {
-	 private ProgressDialog pDialog;
+	private ProgressDialog pDialog;
 	 
 	    JSONParser jsonParser = new JSONParser();
 	    EditText inputEvent;
 	    EditText inputLocation;
 	    EditText inputDescription;
 	    
+	    
 	    private static String url_update_row = Constants.SERVER_ADDRESS+"images/create_product.php"; 
 	    private static final String TAG_SUCCESS = "success";
-	    
+	    //ok.
 	    protected void onCreate(Bundle savedInstanceState) 
 {
     super.onCreate(savedInstanceState);
@@ -73,13 +74,16 @@ public class F2Activity extends DashboardActivity
 	            String Description = inputDescription.getText().toString();
 	            System.out.println("---------------------------3------------------------------------");
 	            // Building Parameters
+	            
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
+	           
+	            params.add(new BasicNameValuePair("Name", F1Activity.Name));
 	            params.add(new BasicNameValuePair("Event", Event));
 	            params.add(new BasicNameValuePair("Location", Location));
 	            params.add(new BasicNameValuePair("Description", Description));
+	            
 	            System.out.println("---------------------------4------------------------------------");
-	            // getting JSON Object
-	            // Note that create product url accepts POST method
+	                        
 	            JSONObject json = JSONParser.makeHttpRequest(url_update_row, "POST", params);
 	            System.out.println("---------------------------5------------------------------------");
 	            // check logcat for response
@@ -91,7 +95,7 @@ public class F2Activity extends DashboardActivity
 	 
 	                if (success == 1) {
 	                    // successfully created product
-	                    Intent i = new Intent(getApplicationContext(), F1Activity.class);
+	                    Intent i = new Intent(getApplicationContext(), HomeActivity.class);
 	                    startActivity(i);
 	                    
 	 

@@ -5,6 +5,9 @@
       android:versionName="1.0">
     
 <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application 
       android:theme="@style/Theme.D1"
@@ -36,7 +39,7 @@
             android:theme="@style/Theme.D1"
             android:label="@string/title_search"
             />
-      
+       
       <activity android:name=".SearchAtHome"
             android:theme="@style/Theme.D1"
             android:label="@string/title_search1"

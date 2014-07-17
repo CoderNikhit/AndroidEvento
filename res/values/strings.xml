@@ -3,7 +3,7 @@
 <resources>
    
 
-    <string name="app_name">Evento</string>
+    <string name="app_name">SurfLive</string>
     <string name="description_logo">Demo</string>
 
     <string name="description_about">About</string>
@@ -19,10 +19,11 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_search1">Graphics</string>
-    <string name="title_feature1">Upload Image</string>
+    <string name="title_feature1">Capture and Upload</string>
     <string name="title_feature2">View Image</string>
     <string name="title_feature3">Upload Video</string>
     <string name="title_feature4">View Video</string>
+    <string name="hello">hello</string>
     
 
     <string name="feature1_intro">A camera button and a button to choose an image from device goes here.</string>

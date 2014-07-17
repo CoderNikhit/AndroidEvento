@@ -41,9 +41,7 @@ public class JSONParser {
  
         // Making HTTP request
         try {
-        	// mobile se chal raha  hai ye ?
-        	// same error.k <br> kaha hai ?output print kahan ho raha hai ?
-            // check for request method
+        	// check for request method
             if(method == "POST"){
                 // request method is POST
                 // defaultHttpClient
@@ -80,12 +78,9 @@ public class JSONParser {
         try {
         	  System.out.println("---------------------------5.3------------------------------------");
               System.out.println(is);
-            jObj = new JSONObject(is);  // yaha error h.
+            jObj = new JSONObject(is);
             System.out.println("---------------------------5.4------------------------------------");
-            // ruk ruk
-            // ek jagah ip change nai hua shayad
-            // lemme check
-        } catch (JSONException e) {
+                  } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
  
